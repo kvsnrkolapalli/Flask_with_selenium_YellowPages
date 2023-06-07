@@ -388,7 +388,7 @@ def download_pdf(o_id):
         # Create a BytesIO object to hold the Excel file
         excel_file = io.BytesIO(d.file)
         # Return the Excel file as a response
-        return send_file(excel_file, attachment_filename=path,
+        return send_file(excel_file, download_name=path,
                      as_attachment=True)
     else:
         return 'Unauthorized Request'
