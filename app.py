@@ -47,7 +47,9 @@ class Yellow:
             self.browser=webdriver.Chrome()
             # self.browser = webdriver.Chrome(service=self.service)
         else:
-            self.browser= webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+            chromedriver_path = '/usr/bin/chromedriver'
+            self.browser=webdriver.Chrome(executable_path='/usr/bin/chromedriver', options=options)
+            # self.browser= webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
         self.browser.maximize_window()
 
     def open_page(self, url: str):
