@@ -4,7 +4,7 @@ sudo apt-get update
 
 sudo apt-get install python3-venv
 
-git clone https://github.com/kvsnrkolapalli/Flask_with_Selinium/
+git clone https://github.com/kvsnrkolapalli/Flask_with_selenium_YellowPages/
 
 mv Flask_with_Selinium Flask
 
