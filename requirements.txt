@@ -1,5 +1,5 @@
 selenium
-pandas
+pandas==1.4.3
 bs4
 webdriver_manager
 openpyxl
