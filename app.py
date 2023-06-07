@@ -101,26 +101,26 @@ def get_list_href_xpath(browser,XPATH,l):
     return list
 
 
-def UI(Company,o_id):
+def UI(Company,city,o_id):
     with app.test_request_context():
         global df
         start_time=datetime.now((pytz.timezone('US/Pacific')))
         browser=Yellow('SAM')
         search=Company
         try:
-            main_link='https://yellowpages.com.eg/en/category/'+search.lower().replace(' ','-')+'/p1'
+            main_link='https://yellowpages.com.eg/en/category/'+search.lower().replace(' ','-')+'/p1'+str(city)
             browser.open_page(main_link)
 
             last_page=browser.browser.find_element(by=By.CLASS_NAME,value='last-page').get_attribute('href')
 
-            pages=last_page.split('/')[-1].split('p')[-1]
+            pages=last_page.split('/')[-1].split('p')[-1].split('?')[0]
             order=Orders.query.filter_by(o_id=o_id).first()
             order.no_of_pages=pages
 
             for page in range(1,int(pages)+1):
                 order.status='Getting Page - '+str(page)
                 db.session.commit()
-                main_link='https://yellowpages.com.eg/en/category/'+search.lower().replace(' ','-')+'/p'+str(page)
+                main_link='https://yellowpages.com.eg/en/category/'+search.lower().replace(' ','-')+'/p'+str(page)+str(city)
                 print(main_link)
                 browser.open_page(main_link)
 
@@ -365,6 +365,7 @@ def search():
     if request.method == 'POST':
         try:
             company_name=request.form['company_name']
+            city=request.form['city']
             print(company_name)
             start_time=datetime.now(pytz.timezone('US/Pacific')).strftime("%m-%d-%Y, %H:%M:%S")
             new_order=Orders(username=current_user.username,time_created=start_time,name=company_name,status='Order Created')
@@ -372,7 +373,7 @@ def search():
             db.session.commit()
             o_id=new_order.o_id
             print(o_id) 
-            _thread.start_new_thread(UI,(company_name,o_id,))
+            _thread.start_new_thread(UI,(company_name,city,o_id,))
             return redirect('/account')
         except:
             pass
