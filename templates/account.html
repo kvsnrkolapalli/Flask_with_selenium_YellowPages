@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Start your development with LeadMark landing page.">
+    <meta name="author" content="Devcrud">
+    <title>App</title>
+    <!-- font icons -->
+    <link rel="stylesheet" href="../static/assets/vendors/themify-icons/css/themify-icons.css">
+    <!-- Bootstrap + LeadMark main styles -->
+	<link rel="stylesheet" href="../static/assets/css/leadmark.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+</head>
+<body data-spy="scroll" data-target=".navbar" data-offset="40" id="home">
+    <div class="loader"></div>
+    <script>
+        window.addEventListener("load", () => {
+            const loader = document.querySelector(".loader");
+          
+            loader.classList.add("loader--hidden");
+          
+            loader.addEventListener("transitionend", () => {
+              document.body.removeChild(loader);
+            });
+          });          
+    </script>   
+    <!-- page Navigation -->
+    
+    <nav class="navbar custom-navbar navbar-expand-md navbar-light fixed-top" data-spy="affix" data-offset-top="10">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="../static/assets/imgs/logo.svg" alt="">
+            </a>
+            <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">            
+                    {% if name %}
+                    <li class="nav-item">
+                        <a href="/search" class="nav-link">Search</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/account" class="nav-link">My Account</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/logout" class="ml-4 nav-link btn btn-primary btn-sm rounded">Logout</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a href="/login" class="ml-4 nav-link btn btn-primary btn-sm rounded">Login</a>
+                    </li>
+
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- End Of Second Navigation -->
+
+    <!-- Page Header -->
+    <header class="header">
+        <div class="overlay">
+            <h1 >Hi, {{name}}</h1>
+            <br>
+            <!--<a href="/get_report">Get Report</a>-->
+
+        </div>  
+        <!-- <div class="shape">
+            <svg viewBox="0 0 1500 200">
+                <path d="m 0,240 h 1500.4828 v -71.92164 c 0,0 -286.2763,-81.79324 -743.19024,-81.79324 C 300.37862,86.28512 0,168.07836 0,168.07836 Z"/>
+            </svg>
+        </div>  -->
+        <div class="mouse-icon"><div class="wheel"></div></div>
+        <div class="container"></div>
+    </header>
+    <!-- End Of Page Header -->
+
+
+
+    <div class="my-tab">
+        <div class="over">  
+            
+    {% if view_all[0] %}      
+        <table class="table table-striped" align='center'>
+            <tr>
+                <th>Name</th>
+                <th>Time Created</th>
+                <th style='width:150px;'>Total Records</th>
+                <th>Status</th>
+                <th>Time Completed</th>
+                <th>Total Seconds</th>
+                <th>Download</th>
+                <th>Remove</th>
+            </tr>
+            {% for i in  view_all %}
+            <tr>
+                <td>{{i.name}}</td>
+                <td>{{i.time_created}}</td>
+                <td><center>{% if i.no_of_pages!=None %}{{i.no_of_pages}}{% else %} - {% endif %}</center></td>
+                <td>{{i.status}}</td>
+                <td><center>{% if i.time_completed!=None %}{{i.time_completed}}{% else %} - </center>{% endif %}</center></td>
+                <td><center>{% if i.total_sec!=None %}{{i.total_sec}}{% else %} - {% endif %}</center></td>
+                
+                <td>{% if i.file!=None %}<a href='/download_file/{{i.o_id}}'>Download</a>{% endif %}</td>
+                <td><a href='/remove_order/{{i.o_id}}'>Remove</a></td>
+
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+
+        <h1 style='color:white;'> No Orders Found</h1>
+
+    {% endif %}
+    </div>
+
+
+</div>
+	
+	<!-- core  -->
+    <script src="../static/assets/vendors/jquery/jquery-3.4.1.js"></script>
+    <script src="../static/assets/vendors/bootstrap/bootstrap.bundle.js"></script>
+
+    <!-- bootstrap 3 affix -->
+	<script src="../static/assets/vendors/bootstrap/bootstrap.affix.js"></script>
+
+    <!-- Isotope -->
+    <script src="../static/assets/vendors/isotope/isotope.pkgd.js"></script>
+
+    <!-- LeadMark js -->
+    <script src="../static/assets/js/leadmark.js"></script>
+
+</body>
+</html>

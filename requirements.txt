@@ -1,0 +1,17 @@
+selenium
+pandas
+bs4
+webdriver_manager
+openpyxl
+flask
+flask_bootstrap
+wtforms
+Werkzeug
+Flask-Login
+datetime
+flask-sqlalchemy
+flask_wtf
+gunicorn
+wget
+email_validator
+lxml
